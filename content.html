@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Women's Day</title>
+
+    <!-- Thêm favicon -->
+    <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/002/055/748/non_2x/happy-women-s-day-typographical-design-elements-international-women-s-day-icon-women-s-day-symbol-minimalistic-design-for-international-women-s-day-concept-illustration-free-vector.jpg" type="image/x-icon">
+
+    <style>
+        /* Thiết kế background và tổng thể trang */
+        body {
+            background: linear-gradient(135deg, #ff99cc, #ff4da6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* Phần loading - hiệu ứng mượt mà */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 1s ease-in-out;
+            text-align: center;
+        }
+
+        .heart-bar {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            border: 2px solid #ff007f;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: heartBarAnimation 3s ease-in-out infinite;
+        }
+
+        @keyframes heartBarAnimation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .heart {
+            font-size: 35px;
+            opacity: 0.4;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .heart.active {
+            opacity: 1;
+            color: #ff007f;
+        }
+
+        /* Progress bar với hiệu ứng gradient */
+        .progress-bar {
+            width: 350px;
+            height: 25px;
+            border-radius: 12px;
+            border: 2px solid #ff4da6;
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            margin: auto; /* Căn giữa theo chiều ngang */
+            display: block; 
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(to right, #ff4da6, #ff007f);
+            border-radius: 12px;
+            transition: width 2s ease-out;
+        }
+
+        /* Phần nội dung chính */
+        .content-wrapper {
+            background: rgba(0, 0, 0, 0.5); /* Nền mờ */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            margin: auto;
+        }
+
+        .content {
+            display: none;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .content h1 {
+            color: #fff;
+            font-size: 48px;
+            font-weight: 700;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .content p {
+            font-size: 28px;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content p span {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff4da6;
+        }
+
+        /* Hiệu ứng rơi trái tim và hoa */
+        .falling-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .falling-item {
+            position: absolute;
+            font-size: 25px;
+            opacity: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) translateX(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) translateX(calc(-10px + 20px * var(--direction))) scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) translateX(calc(-20px + 40px * var(--direction))) scale(0.8);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Thêm nhạc nền -->
+    <audio autoplay loop>
+        <source src="A_Thousand_Years.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="loading-container" id="loading">
+        <div class="heart-bar">
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+    </div>
+
+    <div class="content" id="content">
+        <div class="content-wrapper">
+            <h1>Chúc Mừng Ngày Quốc Tế Phụ Nữ 8/3</h1>
+            <p>Gửi đến <span>mẹ</span> và <span>chị hai</span>, chúc mẹ và chị luôn khỏe mạnh, xinh đẹp và gặp thật nhiều may mắn trong công việc và cuộc sống. Hy vọng mọi điều tốt đẹp sẽ luôn đến với hai người, để mỗi ngày đều tràn ngập niềm vui và hạnh phúc! 💐</p>
+        </div>
+    </div>
+
+    <div class="falling-container" id="falling-container"></div>
+
+    <script>
+        let hearts = document.querySelectorAll(".heart-bar .heart");
+        let index = 0;
+        function lightUpHearts() {
+            if (index < hearts.length) {
+                hearts[index].classList.add("active");
+                index++;
+                setTimeout(lightUpHearts, 300);
+            }
+        }
+        lightUpHearts();
+
+        let progressFill = document.getElementById("progress");
+        function fillProgress() {
+            progressFill.style.width = "100%";
+        }
+        setTimeout(fillProgress, 500);
+
+        setTimeout(() => {
+            document.getElementById("loading").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("content").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("content").style.opacity = "1";
+                }, 100);
+            }, 1000);
+        }, 3000);
+
+        // Hiệu ứng rơi trái tim và hoa nâng cấp
+        function createFallingItem() {
+            const item = document.createElement("span");
+            item.classList.add("falling-item");
+            item.innerHTML = Math.random() > 0.5 ? "❤️" : "🌸";
+            item.style.left = Math.random() * 100 + "vw";
+            item.style.fontSize = (Math.random() * 10 + 25) + "px";
+            item.style.animationDuration = (Math.random() * 2 + 3) + "s";
+            item.style.setProperty('--direction', Math.random() > 0.5 ? "1" : "-1");
+            document.getElementById("falling-container").appendChild(item);
+            setTimeout(() => {
+                item.remove();
+            }, 5000);
+        }
+
+        setInterval(createFallingItem, 200);
+    </script>
+</body>
+</html>
